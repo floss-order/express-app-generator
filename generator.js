@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 
 
 function generatePackage(name, description, keywords=[], author, license='ISC', dependencies, devDependencies) {
@@ -27,4 +28,9 @@ function generatePackage(name, description, keywords=[], author, license='ISC', 
     }
 
     fs.writeFileSync('package.json', JSON.stringify(package, null, 2), 'utf-8')
+}
+
+function concat(filename, ...files) {
+    const content = files.map(file => fs.readFileSync(file)).join('\n')
+    fs.writeFileSync(path.join(__dirname, filename), content, 'utf-8')
 }
